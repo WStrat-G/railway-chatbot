@@ -1,0 +1,21 @@
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class ChatRequest(BaseModel):
+    message:str
+
+@app.get("/")
+def health():
+    return {
+        "status":"running"
+    }
+
+@app.post("/chat")
+def chat(req:ChatRequest):
+    return {
+        "user_message":req.message,
+        "bot_reponse":f"You said:{req.message}"
+    }
+    
